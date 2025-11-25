@@ -16,7 +16,7 @@ machine learning.
 
 ## Project Structure
 
-    TPPANDAS/
+    panda-proj/
     │
     ├── data/
     │   ├── morocco_ecommerce.csv
@@ -89,6 +89,3 @@ Cleaned dataset saved in:
 
     results/cleaned_dataset.csv
 
-## License
-
-MIT License
