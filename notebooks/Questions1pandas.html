@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Morocco E-Commerce – Questions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #020617;
+      --bg-soft: #0b1220;
+      --card: #020617;
+      --accent: #22d3ee;
+      --accent-soft: rgba(34, 211, 238, 0.16);
+      --accent-strong: #06b6d4;
+      --text: #e5e7eb;
+      --text-soft: #9ca3af;
+      --border: #1f2937;
+      --radius-lg: 1.2rem;
+      --radius-pill: 999px;
+      --shadow-card: 0 18px 35px rgba(15, 23, 42, 0.9);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #1d2538 0, #020617 50%, #000 100%);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 1.5rem;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 2rem;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 900px) {
+      header {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .tagline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.25rem 0.9rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: linear-gradient(90deg, rgba(34, 211, 238, 0.18), transparent);
+      color: var(--accent-strong);
+      font-size: 0.8rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .tagline-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 12px rgba(34, 197, 94, 0.9);
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      color: var(--text-soft);
+      font-size: 0.96rem;
+      max-width: 34rem;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .pill {
+      padding: 0.2rem 0.8rem;
+      border-radius: var(--radius-pill);
+      background: rgba(148, 163, 184, 0.12);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 0.78rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .pill span.emoji {
+      font-size: 0.9rem;
+    }
+
+    .hero-card {
+      background: radial-gradient(circle at 0 0, rgba(34, 211, 238, 0.35), transparent 55%),
+                  radial-gradient(circle at 100% 100%, rgba(37, 99, 235, 0.4), transparent 60%),
+                  #020617;
+      border-radius: 1.5rem;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      padding: 1.3rem 1.4rem;
+      box-shadow: var(--shadow-card);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-chip {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      padding: 0.2rem 0.7rem;
+      border-radius: var(--radius-pill);
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(15, 23, 42, 0.95);
+    }
+
+    .hero-meta {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    .metric-card {
+      background: rgba(15, 23, 42, 0.92);
+      border-radius: 0.9rem;
+      border: 1px solid rgba(30, 64, 175, 0.9);
+      padding: 0.7rem 0.8rem;
+    }
+
+    .metric-label {
+      color: var(--text-soft);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      margin-bottom: 0.15rem;
+    }
+
+    .metric-value {
+      font-weight: 600;
+      font-size: 0.96rem;
+    }
+
+    main {
+      background: linear-gradient(145deg, var(--bg-soft), #020617);
+      border-radius: 1.7rem;
+      border: 1px solid var(--border);
+      padding: 1.8rem 1.6rem 2.2rem;
+      box-shadow: var(--shadow-card);
+    }
+
+    .section {
+      margin-bottom: 1.8rem;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.85rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(55, 65, 81, 0.8);
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-title span.emoji {
+      font-size: 1.3rem;
+    }
+
+    .section-subtitle {
+      color: var(--text-soft);
+      font-size: 0.85rem;
+      margin-top: 0.2rem;
+    }
+
+    .section-tag {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.7rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent-strong);
+    }
+
+    .question-card {
+      background: radial-gradient(circle at 0 0, rgba(34, 211, 238, 0.18), transparent 50%),
+                  #020617;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(31, 41, 55, 0.95);
+      padding: 1rem 1.1rem;
+      box-shadow: 0 14px 25px rgba(15, 23, 42, 0.95);
+      margin-bottom: 0.9rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .question-meta {
+      font-size: 0.7rem;
+      color: var(--text-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 0.25rem;
+    }
+
+    .question-text {
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .question-badge {
+      position: absolute;
+      top: 0.7rem;
+      right: 0.9rem;
+      font-size: 0.7rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: var(--radius-pill);
+      background: var(--accent-soft);
+      border: 1px solid rgba(34, 211, 238, 0.9);
+      color: var(--accent-strong);
+    }
+
+    .question-text code {
+      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace;
+      font-size: 0.78rem;
+      padding: 0.05rem 0.3rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(30, 64, 175, 0.85);
+    }
+
+    ol {
+      padding-left: 1.3rem;
+    }
+
+    li {
+      margin-bottom: 0.15rem;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 1.2rem;
+      font-size: 0.78rem;
+      color: var(--text-soft);
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div>
+        <div class="tagline">
+          <span class="tagline-dot"></span>
+          <span>Morocco E-Commerce · Dataset Practice</span>
+        </div>
+        <h1>Data Cleaning & Analysis – Question Sheet</h1>
+        <p class="subtitle">
+          Use <code>morocco_ecommerce.csv</code> and Pandas to answer all questions below.
+          Focus on reading, cleaning, and exploring the dataset like a real data analyst.
+        </p>
+        <div class="pill-row">
+          <div class="pill"><span class="emoji">📂</span><span>Real-world dataset</span></div>
+          <div class="pill"><span class="emoji">🐼</span><span>Pandas practice</span></div>
+          <div class="pill"><span class="emoji">🧹</span><span>Cleaning & EDA</span></div>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="hero-card-inner">
+          <div class="hero-title-row">
+            <div>
+              <div class="hero-chip">Student View</div>
+              <div class="hero-meta" style="margin-top: 0.3rem;">Questions Only · No Spoilers</div>
+            </div>
+            <div style="font-size: 1.8rem;">🎯</div>
+          </div>
+          <div class="hero-metrics">
+            <div class="metric-card">
+              <div class="metric-label">Focus</div>
+              <div class="metric-value">Dataset-based tasks</div>
+              <p style="font-size: 0.75rem; color: var(--text-soft); margin-top: 0.2rem;">
+                Load, inspect, filter, summarize, and clean real e-commerce data.
+              </p>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Tools</div>
+              <div class="metric-value">Pandas + Python</div>
+              <p style="font-size: 0.75rem; color: var(--text-soft); margin-top: 0.2rem;">
+                Use Jupyter, VS Code, or any Python IDE you like.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Section 1 -->
+      <section class="section">
+        <div class="section-header">
+          <div>
+            <div class="section-title">
+              <span class="emoji">①</span>
+              <span>Dataset Structure & Basic Exploration</span>
+            </div>
+            <p class="section-subtitle">
+              Begin by understanding what the dataset looks like and what each column represents.
+            </p>
+          </div>
+          <div class="section-tag">Warm-up</div>
+        </div>
+
+        <div class="question-card">
+          <div class="question-meta">Q1–Q4</div>
+          <span class="question-badge">Basics</span>
+          <div class="question-text">
+            <ol>
+              <li>Load <code>morocco_ecommerce.csv</code> into a DataFrame called <code>df</code> and display the first 10 rows.</li>
+              <li>How many rows and columns does the dataset contain?</li>
+              <li>List all the column names present in the dataset.</li>
+              <li>What are the data types of each column?</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2 -->
+      <section class="section">
+        <div class="section-header">
+          <div>
+            <div class="section-title">
+              <span class="emoji">②</span>
+              <span>Missing Values & Data Quality</span>
+            </div>
+            <p class="section-subtitle">
+              Identify and handle missing data to improve the reliability of your analysis.
+            </p>
+          </div>
+          <div class="section-tag">Cleaning</div>
+        </div>
+
+        <div class="question-card">
+          <div class="question-meta">Q5–Q9</div>
+          <span class="question-badge">NaN</span>
+          <div class="question-text">
+            <ol start="5">
+              <li>Count how many missing values there are in each column.</li>
+              <li>Which column or columns contain the highest number of missing values?</li>
+              <li>Remove all rows that contain <strong>any</strong> missing values and report how many rows remain.</li>
+              <li>Fill missing values in the <code>city</code> column with the string <code>"Unknown"</code>.</li>
+              <li>Fill missing values in the <code>unit_price</code> column using the mean of that column.</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3 -->
+      <section class="section">
+        <div class="section-header">
+          <div>
+            <div class="section-title">
+              <span class="emoji">③</span>
+              <span>Duplicates</span>
+            </div>
+            <p class="section-subtitle">
+              Make sure each order is counted correctly and not duplicated.
+            </p>
+          </div>
+          <div class="section-tag">Cleaning</div>
+        </div>
+
+        <div class="question-card">
+          <div class="question-meta">Q10–Q12</div>
+          <span class="question-badge">Duplicates</span>
+          <div class="question-text">
+            <ol start="10">
+              <li>Determine how many fully duplicated rows exist in the dataset.</li>
+              <li>Remove duplicated rows and report the new number of rows.</li>
+              <li>Remove duplicates based only on the <code>order_id</code> column, keeping the first occurrence.</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4 -->
+      <section class="section">
+        <div class="section-header">
+          <div>
+            <div class="section-title">
+              <span class="emoji">④</span>
+              <span>Filtering & Subsetting</span>
+            </div>
+            <p class="section-subtitle">
+              Focus on specific slices of the data using conditions on numeric and categorical columns.
+            </p>
+          </div>
+          <div class="section-tag">Analysis</div>
+        </div>
+
+        <div class="question-card">
+          <div class="question-meta">Q13–Q16</div>
+          <span class="question-badge">Filters</span>
+          <div class="question-text">
+            <ol start="13">
+              <li>Select all orders with <code>quantity &gt; 3</code>.</li>
+              <li>Select all orders where <code>total_amount &gt; 1000</code>.</li>
+              <li>Select all orders made in the <code>"Casablanca-Settat"</code> region.</li>
+              <li>Select all orders that were <strong>not</strong> paid with the payment method <code>"Cash"</code>.</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 5 -->
+      <section class="section">
+        <div class="section-header">
+          <div>
+            <div class="section-title">
+              <span class="emoji">⑤</span>
+              <span>Descriptive Statistics</span>
+            </div>
+            <p class="section-subtitle">
+              Summarize the key numeric columns to understand revenue and volume.
+            </p>
+          </div>
+          <div class="section-tag">Analysis</div>
+        </div>
+
+        <div class="question-card">
+          <div class="question-meta">Q17–Q19</div>
+          <span class="question-badge">Stats</span>
+          <div class="question-text">
+            <ol start="17">
+              <li>Compute the mean, median, minimum, and maximum of the <code>total_amount</code> column.</li>
+              <li>Identify the region with the highest <strong>average</strong> <code>total_amount</code>.</li>
+              <li>Identify the product (<code>product_id</code>) with the highest total revenue (sum of <code>total_amount</code>).</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 6 -->
+      <section class="section">
+        <div class="section-header">
+          <div>
+            <div class="section-title">
+              <span class="emoji">⑥</span>
+              <span>String Cleaning</span>
+            </div>
+            <p class="section-subtitle">
+              Standardize text columns so cities and labels are consistent.
+            </p>
+          </div>
+          <div class="section-tag">Cleaning</div>
+        </div>
+
+        <div class="question-card">
+          <div class="question-meta">Q20–Q21</div>
+          <span class="question-badge">Strings</span>
+          <div class="question-text">
+            <ol start="20">
+              <li>Standardize values in the <code>city</code> column by removing leading/trailing spaces and applying title-case (e.g. <code>"rabat"</code> → <code>"Rabat"</code>).</li>
+              <li>Replace variations of <code>"Casa"</code> in the <code>city</code> column with the full name <code>"Casablanca"</code>.</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 7 -->
+      <section class="section">
+        <div class="section-header">
+          <div>
+            <div class="section-title">
+              <span class="emoji">⑦</span>
+              <span>Date & Time Features</span>
+            </div>
+            <p class="section-subtitle">
+              Turn raw date strings into features you can group and resample by.
+            </p>
+          </div>
+          <div class="section-tag">Time-Series</div>
+        </div>
+
+        <div class="question-card">
+          <div class="question-meta">Q22–Q25</div>
+          <span class="question-badge">Dates</span>
+          <div class="question-text">
+            <ol start="22">
+              <li>Convert <code>order_date</code> and <code>ship_date</code> into proper datetime objects.</li>
+              <li>Create new columns <code>year</code>, <code>month</code>, and <code>weekday</code> based on <code>order_date</code>.</li>
+              <li>Select all orders made after the date <code>"2023-06-01"</code>.</li>
+              <li>Using <code>order_date</code> as a datetime index, compute the average monthly revenue (mean of <code>total_amount</code> per month).</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 8 -->
+      <section class="section">
+        <div class="section-header">
+          <div>
+            <div class="section-title">
+              <span class="emoji">⑧</span>
+              <span>Outlier Detection</span>
+            </div>
+            <p class="section-subtitle">
+              Detect unusually large orders that might indicate errors or interesting events.
+            </p>
+          </div>
+          <div class="section-tag">Robustness</div>
+        </div>
+
+        <div class="question-card">
+          <div class="question-meta">Q26–Q28</div>
+          <span class="question-badge">Outliers</span>
+          <div class="question-text">
+            <ol start="26">
+              <li>Use the IQR (interquartile range) method on <code>total_amount</code> to detect potential outliers.</li>
+              <li>Use the z-score method on <code>total_amount</code> to detect potential outliers.</li>
+              <li>List the 5 largest values of <code>total_amount</code> and their corresponding <code>order_id</code>.</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      Pro tip: keep your solution notebook and compare it later with the official answer sheet.
+    </footer>
+  </div>
+</body>
+</html>
