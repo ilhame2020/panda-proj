@@ -89,6 +89,4 @@ Cleaned dataset saved in:
 
     results/cleaned_dataset.csv
 
-## License
 
-MIT License
