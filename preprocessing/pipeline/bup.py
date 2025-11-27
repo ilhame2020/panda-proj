@@ -1,59 +1,93 @@
 import pandas as pd
 
-# --- Import all your preprocessing modules ---
-from ..load_and_inspect import (
+# --- Import your preprocessing modules ---
+
+# 1) Loading
+from ..s1_loading.loading import (
     load_data,
-    inspect_data,
 )
 
-from ..missing_values import (
+# 2) Profiling (if needed before cleaning)
+from ..s2_profiling.profiling import (
+    generate_profiling_report,
+)
+
+# 3) Cleaning
+from ..s3_cleaning.missing_values import (
     count_missing,
     column_with_most_missing,
     count_city_unknown,
     drop_missing_rows,
+    fill_missing_dates,
     fill_city_unknown,
     count_unit_price_missing,
     fill_unit_price_mean,
-    detect_unusual_values
+    complete_amounts,
+    fix_region_with_city,
 )
 
-from ..duplicates import (
+from ..s3_cleaning.type_fixing import (
+    convert_to_float,
+    convert_to_type,
+    convert_number_words_to_numeric,
+    detect_unusual_values,
+    clean_numeric_column,
+)
+
+from ..s3_cleaning.duplicates import (
     count_duplicates,
     drop_duplicates_all,
-    drop_duplicates_order_id
+    drop_duplicates_order_id,
 )
 
-from ..filtering import (
+from ..s3_cleaning.string_cleaning import (
+    clean_city_format,
+    replace_casa_variants,
+    replace_nan_columns_by_words,
+    standardize_case,
+    clean_city_column,
+    clean_region_column
+)
+from ..s3_cleaning.date_cleaning import (
+    normalize_date,
+)
+from ..s3_cleaning.outliers import (
+    detect_outliers_iqr, 
+    detect_outliers_zscore,
+    mark_outliers_iqr,
+)
+
+# 4) Features
+from ..s4_features.date_features import (
+    add_date_variables,
+    add_date_features,
+    convert_dates,
+    filter_after_date,
+)
+from ..s4_features.feature_engineering import (
+    apply_discount,
+)
+# 5) Analysis
+from ..s5_analysis.filtering import (
     filter_quantity_gt_3,
     filter_total_amount_gt_1000,
     filter_region_casa_settat,
-    filter_not_cash
+    filter_not_cash,
 )
 
-from ..descriptive_stats import (
+from ..s5_analysis.descriptive_stats import (
     summarize_total_amount,
     region_highest_average_total,
-    product_highest_revenue
+    product_highest_revenue,
 )
-
-from ..string_cleaning import (
-    clean_city_format,
-    replace_casa_variants
+from ..s5_analysis.grouped_kpis import (
+    average_monthly_revenue,
+    top_n_largest_orders,
+    compute_grouped_kpis,
 )
-
-from ..datetime_processing import (
-    convert_dates,
-    add_date_features,
-    filter_after_date,
-    average_monthly_revenue
+from ..s5_analysis.time_series import (
+    analyze_time_series,
 )
-
-from ..outliers import (
-    detect_outliers_iqr,
-    detect_outliers_zscore,
-    top_5_largest_orders
-)
-
 
 # ---------------------------------------------------------------------
 # 🔥 MASTER PIPELINE FUNCTION — runs all Q1–Q28 steps
@@ -127,7 +161,7 @@ def full_preprocessing(path):
     print("Total amount summary:", summarize_total_amount(df))
     print("Region with highest average total_amount:", region_highest_average_total(df))
     print("Product with highest revenue:", product_highest_revenue(df))
-    
+
 
     # --------------------------
     # String Cleaning (Q20–Q21)
@@ -164,7 +198,7 @@ def full_preprocessing(path):
     print("Outliers detected by Z-score method:")
     detect_outliers_zscore(df)
     print("Top 5 largest orders by total_amount:")
-    print(top_5_largest_orders(df))
+    print(top_n_largest_orders(df,"order_id","total_amount",5))
 
     # print("\n--- PIPELINE COMPLETE ---\n")
 
